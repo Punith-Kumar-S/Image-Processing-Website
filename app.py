@@ -21,7 +21,8 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
-app = Flask(__name__)
+application = Flask(__name__)
+app=application
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['UPDATED_FOLDER'] = UPDATED_FOLDER
 
