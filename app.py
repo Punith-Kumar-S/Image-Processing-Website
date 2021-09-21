@@ -1,4 +1,12 @@
-import os
+from flask import Flask
+application=Flask(__name__)
+app=application
+
+@application.route('/')
+def hello_world():
+    return "hello World!!"
+
+""""import os
 from pathlib import WindowsPath
 from flask import Flask, render_template, url_for, request
 from PIL import Image, ImageEnhance
@@ -197,3 +205,4 @@ def contact():
 
 if __name__ == '__main__':
     app.run(debug=True)
+    """
