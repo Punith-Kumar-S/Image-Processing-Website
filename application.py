@@ -1,25 +1,46 @@
 from flask import Flask
-application=Flask(__name__)
-app=application
-if __name__ == '__main__':
-    application.run(debug=True)
-
-@application.route('/')
-def hello_world():
-    return "hello World!!"
-
-""""import os
-from pathlib import WindowsPath
+import os
 from flask import Flask, render_template, url_for, request
-from PIL import Image, ImageEnhance
 from flask.helpers import send_from_directory
 from werkzeug.utils import secure_filename
 import cv2  # for image processing
 import numpy as np  # to store image
 import sys
-import matplotlib.pyplot as plt
 import numpy as np
-from PIL import ImageTk, Image
+from PIL import  Image
+
+application = Flask(__name__)
+app=application
+
+if __name__ == '__main__':
+    application.run(debug=True)
+
+@application.route('/')
+@application.route("/home")
+def home():
+    return render_template('index.html')
+
+@application.route("/about")
+def about():
+    return render_template('about.html')
+
+
+@application.route("/editing/<filename>", methods=['POST', 'GET'])
+def editing(filename):
+    return render_template('resize.html', filename=filename)
+
+
+@application.route("/edit")
+def edit():
+    return render_template('edit.html')
+
+
+@application.route("/contact")
+def contact():
+    return render_template('contact.html')
+
+
+"""
 UPLOAD_FOLDER = '../image/upload'
 UPDATED_FOLDER = '../image/updated'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -31,29 +52,24 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
-application = Flask(__name__)
-app=application
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['UPDATED_FOLDER'] = UPDATED_FOLDER
+
+application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+application.config['UPDATED_FOLDER'] = UPDATED_FOLDER
 
 
-@app.route('/')
-@app.route("/home")
-def home():
-    return render_template('index.html')
 
 
-@app.route('/upload/<filename>')
+@application.route('/upload/<filename>')
 def send_file(filename):
     return send_from_directory(UPLOAD_FOLDER, filename)
 
 
-@app.route('/updated/<name>')
+@application.route('/updated/<name>')
 def send(name):
     return send_from_directory(UPDATED_FOLDER, name)
 
 
-@app.route('/r/<filename>', methods=['GET', 'POST'])
+@application.route('/r/<filename>', methods=['GET', 'POST'])
 def r(filename):
     if request.method == 'POST':
         img = Image.open(
@@ -68,7 +84,7 @@ def r(filename):
         return render_template('preview.html', filename=filename)
 
 
-@app.route("/fileup", methods=['GET', 'POST'])
+@application.route("/fileup", methods=['GET', 'POST'])
 def fileup():
     if request.method == 'POST':
         file = request.files['file']
@@ -78,7 +94,7 @@ def fileup():
             return render_template('edit.html', filename=filename)
 
 
-@app.route("/blue/<filename>", methods=['GET', 'POST'])
+@application.route("/blue/<filename>", methods=['GET', 'POST'])
 def blue(filename):
     originalmage = cv2.imread(
         '../image/upload/'+filename)
@@ -95,7 +111,7 @@ def blue(filename):
     return render_template('preview.html', filename=name)
 
 
-@app.route("/grey/<filename>", methods=['GET', 'POST'])
+@application.route("/grey/<filename>", methods=['GET', 'POST'])
 def grey(filename):
     originalmage = cv2.imread(
         '../image/upload/'+filename)
@@ -111,7 +127,7 @@ def grey(filename):
     return render_template('preview.html', filename=name)
 
 
-@app.route("/color/<filename>", methods=['GET', 'POST'])
+@application.route("/color/<filename>", methods=['GET', 'POST'])
 def color(filename):
     originalmage = cv2.imread(
         '../image/upload/'+filename)
@@ -127,7 +143,7 @@ def color(filename):
     return render_template('preview.html', filename=name)
 
 
-@app.route("/cartoon/<filename>", methods=['GET', 'POST'])
+@application.route("/cartoon/<filename>", methods=['GET', 'POST'])
 def cartoon(filename):
     originalmage = cv2.imread(
         '../image/upload/'+filename)
@@ -149,7 +165,7 @@ def cartoon(filename):
     return render_template('preview.html', filename=name)
 
 
-@app.route("/smooth/<filename>", methods=['GET', 'POST'])
+@application.route("/smooth/<filename>", methods=['GET', 'POST'])
 def smooth(filename):
     originalmage = cv2.imread(
         '../image/upload/'+filename)
@@ -165,7 +181,7 @@ def smooth(filename):
     return render_template('preview.html', filename=name)
 
 
-@app.route("/edge/<filename>", methods=['GET', 'POST'])
+@application.route("/edge/<filename>", methods=['GET', 'POST'])
 def edge(filename):
     originalmage = cv2.imread(
         '../image/upload/'+filename)
@@ -183,28 +199,5 @@ def edge(filename):
     os.chdir('../image/updated')
     cv2.imwrite(name, ReSized4)
     return render_template('preview.html', filename=name)
+"""
 
-
-@ app.route("/about")
-def about():
-    return render_template('about.html')
-
-
-@ app.route("/editing/<filename>", methods=['POST', 'GET'])
-def editing(filename):
-    return render_template('resize.html', filename=filename)
-
-
-@ app.route("/edit")
-def edit():
-    return render_template('edit.html')
-
-
-@ app.route("/contact")
-def contact():
-    return render_template('contact.html')
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
-    """
