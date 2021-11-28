@@ -10,4 +10,4 @@ TOOLS & TECHNOLOGIES USED:
 * 	Front-end-> HTML, CSS, JAVASCRIPT.
 * 	Back-end ->PHP and FLASK
 * 	Language Used-> Python
-* 	Library->OpenCV
+* 	Library->OpenCV, CNN
